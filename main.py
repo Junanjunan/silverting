@@ -1,7 +1,8 @@
 from typing import Union
 from enum import Enum
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
 from pydantic import BaseModel
 
 
@@ -20,7 +21,7 @@ def read_root():
 
 
 @app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
+def read_item(item_id: int, q: Annotated[Union[str, None], Query(max_length=5)] = None):
     return {"item_id": item_id, "q": q}
 
 
