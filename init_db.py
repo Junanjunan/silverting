@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, inspect
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from main import engine
@@ -6,6 +6,9 @@ from main import engine
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, expire_on_commit=True)
 db = SessionLocal()
+
+inspector = inspect(engine)
+print(inspector.get_table_names())
 
 ########################################################################
 """
