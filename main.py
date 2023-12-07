@@ -22,5 +22,19 @@ async def index(request: Request, db: Session = Depends(get_db)):
 
 @app.get("/db-test")
 async def test_db(request: Request, db: Session = Depends(get_db)):
-    query = db.query(ExampleTable).filter(ExampleTable.is_active == True).first()
-    return {'DB_ENGINE': DB_ENGINE, 'True': query.is_active}
+    # query = db.query(ExampleTable).filter(ExampleTable.is_active == True).first()
+    query = db.query(ExampleTable).filter(ExampleTable.is_active == 1).first()
+    return {'DB_ENGINE': DB_ENGINE, 'name': query.name, 'True': query.is_active}
+
+@app.get("/db-insert")
+async def insert_db(request: Request, db: Session = Depends(get_db)):
+    row0 = ExampleTable(name='False_0', is_active=0)
+    row1 = ExampleTable(name='False', is_active=False)
+    row2 = ExampleTable(name='True_1', is_active=1)
+    row3 = ExampleTable(name='True', is_active=True)
+    row_list = [row0, row1, row2, row3]
+    # for i in row_list:
+    #     db.add(i)
+    # db.commit()
+    # db.close()
+    return {'result':'success'}
