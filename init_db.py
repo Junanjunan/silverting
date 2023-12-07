@@ -2,6 +2,7 @@ from sqlalchemy import inspect
 
 from app.db.session import engine, SessionLocal
 from app.db.models import Base, ExampleTable
+from app.core.config import settings
 
 
 db = SessionLocal()
@@ -23,3 +24,5 @@ new_row = ExampleTable(name="Example", is_active=True)
 db.add(new_row)
 db.commit()
 db.close()
+
+print(f"Table was generated in {settings.CURRENT_DB_ENGINE}")
