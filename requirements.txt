@@ -49,3 +49,8 @@ MarkupSafe==2.1.5
 setuptools==69.1.0
 click==8.1.7
 idna==3.6
+
+# sqlalchemy
+SQLAlchemy==2.0.27
+typing_extensions==4.8.0
+greenlet==3.0.3
