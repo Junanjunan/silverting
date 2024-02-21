@@ -58,3 +58,8 @@ greenlet==3.0.3
 # aiomysql
 aiomysql==0.2.0
 PyMySQL==1.1.0
+
+# cryptography
+cryptography==42.0.3
+pycparser==2.21
+cffi==1.16.0
