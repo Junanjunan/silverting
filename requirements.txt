@@ -54,3 +54,7 @@ idna==3.6
 SQLAlchemy==2.0.27
 typing_extensions==4.8.0
 greenlet==3.0.3
+
+# aiomysql
+aiomysql==0.2.0
+PyMySQL==1.1.0
