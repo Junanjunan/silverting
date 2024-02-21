@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Depends
-from sqlalchemy.future import select
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from database import SessionLocal, create_tables, Item
 
 
-async def get_db_session() -> AsyncSession:
-    async with SessionLocal() as session:
+async def get_db_session():
+    with SessionLocal() as session:
         yield session
 
 
@@ -19,8 +19,8 @@ async def startup_event():
     return {"status":"success"}
 
 @app.get("/")
-async def index(db: AsyncSession = Depends(get_db_session)):
-    async with db.begin():
-        result = await db.execute(select(Item))
+async def index(db: Session = Depends(get_db_session)):
+    with db.begin():
+        result = db.execute(select(Item))
         items = result.scalars().all()
     return items

@@ -1,12 +1,11 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import QueuePool
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
 
-DATABASE_URL = "mysql+aiomysql://gnutest:86357811@localhost/silverting"
+DATABASE_URL = "mysql+pymysql://gnutest:86357811@localhost/silverting"
 
-engine = create_async_engine(
+engine = create_engine(
     DATABASE_URL,
     poolclass=QueuePool,
     pool_size=20,
@@ -17,7 +16,6 @@ engine = create_async_engine(
 
 SessionLocal = sessionmaker(
     bind=engine,
-    class_=AsyncSession,
     autocommit=False,
     autoflush=False,
     expire_on_commit=True,
@@ -35,5 +33,5 @@ class Item(Base):
 
 
 async def create_tables():
-    async with engine.begin() as conn:
+    with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
